@@ -13,6 +13,10 @@ public class Hexed{
 
       System.out.print("What's your color?");
       you = sc.nextChar();
+      setPlayers();
+
+      System.out.print("Who goes first?");
+      first = sc.nextChar();
 
       System.out.print("Enter starting center: ");
       initialRow = sc.nextInt();
@@ -28,14 +32,61 @@ public class Hexed{
         board[initialRow][initialCol - 1] = 'g';
         board[initialRow][initialCol + 1] = 'g';
       }else if (first == 'g'){
-        board[initialRow + 1][initialCol] = 'g';
-        board[initialRow - 1][initialCol - 1] = 'g';
-        board[initialRow - 1][initialCol + 1] = 'g';
-        board[initialRow - 1][initialCol] = 'r';
-        board[initialRow][initialCol - 1] = 'r';
-        board[initialRow][initialCol + 1] = 'r';
+        board[initialRow + 1][initialCol] = 'g'; //above
+        board[initialRow - 1][initialCol - 1] = 'g'; //lower left
+        board[initialRow - 1][initialCol + 1] = 'g'; //lower right
+        board[initialRow - 1][initialCol] = 'r'; //below
+        board[initialRow][initialCol - 1] = 'r'; //upper left
+        board[initialRow][initialCol + 1] = 'r'; //upper right
       }
 
+  }
+
+  public ArrayList<Coordinates> checkPossibleMoves(int row, int col, char you){
+    ArrayList<Coordinates> enemies = checkEnemyNeighbors(int row, int col, char you);
+
+
+  }
+
+  public ArrayList<Coordinates> checkEnemyNeighbors(int row, int col, char you, char[][] board){
+    ArrayList<Coordinates> coor = new ArrayList<Coordinates>;
+    if(board[row + 1][col] != you){
+      Coordinate enemy = new Coordinate(row + 1, col);
+      coor.add<enemy>;
+    }
+
+    if (board[row - 1][col - 1] != you){
+      Coordinate enemy = new Coordinate(row - 1, col - 1);
+      coor.add<enemy>;
+    }
+
+    if(board[row - 1][col + 1] != you){
+      Coordinate enemy = new Coordinate(row - 1, col + 1);
+      coor.add<enemy>;
+    }
+
+    if(board[row - 1][col] != you){
+      Coordinate enemy = new Coordinate(row - 1, col);
+      coor.add<enemy>;
+    }
+
+    if(board[row][col - 1] != you){
+      Coordinate enemy = new Coordinate(row, col - 1);
+      coor.add<enemy>;
+    }
+
+    if(board[row][col + 1] != you){
+      Coordinate enemy = new Coordinate(row, col + 1);
+      coor.add<enemy>;
+    }
+
+    return coor;
+    // board[row + 1][col] above
+    // board[row - 1][col - 1] lower left
+    // board[row - 1][col + 1] lower right
+    // board[row - 1][col] below
+    // board[row][col - 1] upper left
+    // board[row][col + 1] upper right
   }
 
   public void setPlayers(){
