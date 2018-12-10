@@ -43,11 +43,11 @@ public class Hexed{
       }else {
         if(first == 'r'){
           board[initialRow + 1][initialCol] = 'r';
-          board[initialRow - 1][initialCol - 1] = 'r';
-          board[initialRow - 1][initialCol + 1] = 'r';
+          board[initialRow][initialCol - 1] = 'r';
+          board[initialRow][initialCol + 1] = 'r';
           board[initialRow - 1][initialCol] = 'g';
-          board[initialRow][initialCol - 1] = 'g';
-          board[initialRow][initialCol + 1] = 'g';
+          board[initialRow + 1][initialCol - 1] = 'g';
+          board[initialRow + 1][initialCol + 1] = 'g';
         }else if (first == 'g'){
           board[initialRow + 1][initialCol] = 'g'; //above
           board[initialRow][initialCol - 1] = 'g'; //lower left
@@ -60,55 +60,126 @@ public class Hexed{
 
 
   }
-
+  //returns arraylist of coordinates of possible moves
   public ArrayList<Coordinates> checkPossibleMoves(int row, int col, char you, char[][] board){
     ArrayList<Coordinates> enemies = checkEnemyNeighbors(int row, int col, char you, char[][] board);
+    ArrayList<Coordinates> moves = new ArrayList<Coordinates>;
 
-    if(board[enemies.get().getRow(), enemies.get().getCol() ]){
+    for(int i = 0; i < enemies.size(); i++){
+
+      if(enemies.get(i).getDirection().equals("above")){
+          int x = 1;
+          while(board[enemies.get(i).getRow() + x][enemies.get(i).getCol()] == opp){
+            x++;
+          }
+          Coordinates possiblemove = new Coordinate(enemies.get(i).getRow() + x, enemies.get(i).getCol(), "above");
+
+      }
+
+      if(enemies.get(i).getDirection().equals("lower left")){
+          int x = 1;
+          if(enemies.get(i).getCol() % 2 == 0){
+            while(board[enemies.get(i).getRow() - x][enemies.get(i).getCol() - x] == opp){
+              x++;
+            }
+            Coordinates possiblemove = new Coordinate(enemies.get(i).getRow() - x, enemies.get(i).getCol() - x, "lower left");
+          }else{
+            while(board[enemies.get(i).getRow()][enemies.get(i).getCol() - x] == opp){
+              x++;
+            }
+            Coordinates possiblemove = new Coordinate(enemies.get(i).getRow(), enemies.get(i).getCol() - x, "lower left");
+          }
+
+
+      }
+
 
     }
 
   }
+
   //returns arraylist of enemy coordinates
   public ArrayList<Coordinates> checkEnemyNeighbors(int row, int col, char you, char[][] board){
     ArrayList<Coordinates> coor = new ArrayList<Coordinates>;
-    if(board[row + 1][col] != you){
-      Coordinate enemy = new Coordinate(row + 1, col, "above");
-      coor.add<enemy>;
+
+    if(col % 2 == 0){
+      if(board[row + 1][col] != you){
+        Coordinate enemy = new Coordinate(row + 1, col, "above");
+        coor.add<enemy>;
+      }
+
+      if (board[row - 1][col - 1] != you){
+        Coordinate enemy = new Coordinate(row - 1, col - 1, "lower left");
+        coor.add<enemy>;
+      }
+
+      if(board[row - 1][col + 1] != you){
+        Coordinate enemy = new Coordinate(row - 1, col + 1, "lower right");
+        coor.add<enemy>;
+      }
+
+      if(board[row - 1][col] != you){
+        Coordinate enemy = new Coordinate(row - 1, col, "below");
+        coor.add<enemy>;
+      }
+
+      if(board[row][col - 1] != you){
+        Coordinate enemy = new Coordinate(row, col - 1, "upper left");
+        coor.add<enemy>;
+      }
+
+      if(board[row][col + 1] != you){
+        Coordinate enemy = new Coordinate(row, col + 1, "upper right");
+        coor.add<enemy>;
+      }
+    }else {
+      if(board[row + 1][col] != you){
+        Coordinate enemy = new Coordinate(row + 1, col, "above");
+        coor.add<enemy>;
+      }
+
+      if (board[row][col - 1] != you){
+        Coordinate enemy = new Coordinate(row - 1, col - 1, "lower left");
+        coor.add<enemy>;
+      }
+
+      if(board[row][col + 1] != you){
+        Coordinate enemy = new Coordinate(row - 1, col + 1, "lower right");
+        coor.add<enemy>;
+      }
+
+      if(board[row - 1][col] != you){
+        Coordinate enemy = new Coordinate(row - 1, col, "below");
+        coor.add<enemy>;
+      }
+
+      if(board[row + 1][col - 1] != you){
+        Coordinate enemy = new Coordinate(row, col - 1, "upper left");
+        coor.add<enemy>;
+      }
+
+      if(board[row + 1][col + 1] != you){
+        Coordinate enemy = new Coordinate(row, col + 1, "upper right");
+        coor.add<enemy>;
+      }
     }
 
-    if (board[row - 1][col - 1] != you){
-      Coordinate enemy = new Coordinate(row - 1, col - 1, "lower left");
-      coor.add<enemy>;
-    }
-
-    if(board[row - 1][col + 1] != you){
-      Coordinate enemy = new Coordinate(row - 1, col + 1, "lower right");
-      coor.add<enemy>;
-    }
-
-    if(board[row - 1][col] != you){
-      Coordinate enemy = new Coordinate(row - 1, col, "left");
-      coor.add<enemy>;
-    }
-
-    if(board[row][col - 1] != you){
-      Coordinate enemy = new Coordinate(row, col - 1);
-      coor.add<enemy>;
-    }
-
-    if(board[row][col + 1] != you){
-      Coordinate enemy = new Coordinate(row, col + 1);
-      coor.add<enemy>;
-    }
 
     return coor;
+    // if col % 2 == 0
     // board[row + 1][col] above
     // board[row - 1][col - 1] lower left
     // board[row - 1][col + 1] lower right
     // board[row - 1][col] below
     // board[row][col - 1] upper left
     // board[row][col + 1] upper right
+    //else
+    // board[row + 1][col] above
+    // board[row][col - 1] lower left
+    // board[row][col + 1] lower right
+    // board[row - 1][col] below
+    // board[row + 1][col - 1] upper left
+    // board[row + 1][col + 1] upper right
   }
 
   public void setPlayers(){
@@ -119,18 +190,18 @@ public class Hexed{
     }
   }
 
-  public boolean checkNorth(int row, int col){
-    char[][] tempBoard = new char[7][9];
-    int tempRow;
-    int tempCol;
-    if(row != 6){
-      for(int i = row + 1; i <= 6; i++){
-          if(board[i][col] == opp){
-            tempBoard[i+1][col] == you;
-          }
-      }
-    }
-  }
+  // public boolean checkNorth(int row, int col){
+  //   char[][] tempBoard = new char[7][9];
+  //   int tempRow;
+  //   int tempCol;
+  //   if(row != 6){
+  //     for(int i = row + 1; i <= 6; i++){
+  //         if(board[i][col] == opp){
+  //           tempBoard[i+1][col] == you;
+  //         }
+  //     }
+  //   }
+  // }
 
 
 
