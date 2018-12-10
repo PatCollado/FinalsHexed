@@ -24,49 +24,71 @@ public class Hexed{
 
       board[initialRow][initialCol] = 'C';
 
-      if(first == 'r'){
-        board[initialRow + 1][initialCol] = 'r';
-        board[initialRow - 1][initialCol - 1] = 'r';
-        board[initialRow - 1][initialCol + 1] = 'r';
-        board[initialRow - 1][initialCol] = 'g';
-        board[initialRow][initialCol - 1] = 'g';
-        board[initialRow][initialCol + 1] = 'g';
-      }else if (first == 'g'){
-        board[initialRow + 1][initialCol] = 'g'; //above
-        board[initialRow - 1][initialCol - 1] = 'g'; //lower left
-        board[initialRow - 1][initialCol + 1] = 'g'; //lower right
-        board[initialRow - 1][initialCol] = 'r'; //below
-        board[initialRow][initialCol - 1] = 'r'; //upper left
-        board[initialRow][initialCol + 1] = 'r'; //upper right
+      if(initialCol % 2 == 0){
+        if(first == 'r'){
+          board[initialRow + 1][initialCol] = 'r';
+          board[initialRow - 1][initialCol - 1] = 'r';
+          board[initialRow - 1][initialCol + 1] = 'r';
+          board[initialRow - 1][initialCol] = 'g';
+          board[initialRow][initialCol - 1] = 'g';
+          board[initialRow][initialCol + 1] = 'g';
+        }else if (first == 'g'){
+          board[initialRow + 1][initialCol] = 'g'; //above
+          board[initialRow - 1][initialCol - 1] = 'g'; //lower left
+          board[initialRow - 1][initialCol + 1] = 'g'; //lower right
+          board[initialRow - 1][initialCol] = 'r'; //below
+          board[initialRow][initialCol - 1] = 'r'; //upper left
+          board[initialRow][initialCol + 1] = 'r'; //upper right
+        }
+      }else {
+        if(first == 'r'){
+          board[initialRow + 1][initialCol] = 'r';
+          board[initialRow - 1][initialCol - 1] = 'r';
+          board[initialRow - 1][initialCol + 1] = 'r';
+          board[initialRow - 1][initialCol] = 'g';
+          board[initialRow][initialCol - 1] = 'g';
+          board[initialRow][initialCol + 1] = 'g';
+        }else if (first == 'g'){
+          board[initialRow + 1][initialCol] = 'g'; //above
+          board[initialRow][initialCol - 1] = 'g'; //lower left
+          board[initialRow][initialCol + 1] = 'g'; //lower right
+          board[initialRow - 1][initialCol] = 'r'; //below
+          board[initialRow + 1][initialCol - 1] = 'r'; //upper left
+          board[initialRow + 1][initialCol + 1] = 'r'; //upper right
+        }
       }
 
-  }
-
-  public ArrayList<Coordinates> checkPossibleMoves(int row, int col, char you){
-    ArrayList<Coordinates> enemies = checkEnemyNeighbors(int row, int col, char you);
-
 
   }
 
+  public ArrayList<Coordinates> checkPossibleMoves(int row, int col, char you, char[][] board){
+    ArrayList<Coordinates> enemies = checkEnemyNeighbors(int row, int col, char you, char[][] board);
+
+    if(board[enemies.get().getRow(), enemies.get().getCol() ]){
+
+    }
+
+  }
+  //returns arraylist of enemy coordinates
   public ArrayList<Coordinates> checkEnemyNeighbors(int row, int col, char you, char[][] board){
     ArrayList<Coordinates> coor = new ArrayList<Coordinates>;
     if(board[row + 1][col] != you){
-      Coordinate enemy = new Coordinate(row + 1, col);
+      Coordinate enemy = new Coordinate(row + 1, col, "above");
       coor.add<enemy>;
     }
 
     if (board[row - 1][col - 1] != you){
-      Coordinate enemy = new Coordinate(row - 1, col - 1);
+      Coordinate enemy = new Coordinate(row - 1, col - 1, "lower left");
       coor.add<enemy>;
     }
 
     if(board[row - 1][col + 1] != you){
-      Coordinate enemy = new Coordinate(row - 1, col + 1);
+      Coordinate enemy = new Coordinate(row - 1, col + 1, "lower right");
       coor.add<enemy>;
     }
 
     if(board[row - 1][col] != you){
-      Coordinate enemy = new Coordinate(row - 1, col);
+      Coordinate enemy = new Coordinate(row - 1, col, "left");
       coor.add<enemy>;
     }
 
