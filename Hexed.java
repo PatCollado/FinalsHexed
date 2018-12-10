@@ -23,17 +23,23 @@ public class Hexed{
       initialCol = sc.nextInt();
 
       board[initialRow][initialCol] = 'C';
-      initializeBoard(initialRow, initialCol);
+      initializeBoard(initialRow, initialCol, first);
 
-
-
+      todo:
+      -terminating conditions; winner and loser conditions
+      -hexed condition
+      -actual gameplay
+        -enemy move input
+        -looping code that loops every after move has been made
+      -output; the possible moves and the recommended moves
+      -board printing
 
 
 
   }
 
   //initializes the board; puts the starting circle
-  public void initializeBoard(int row, int col){
+  public void initializeBoard(int row, int col, char first){
     if(initialCol % 2 == 0){
       if(first == 'r'){
         board[row + 1][col] = 'r';
