@@ -64,19 +64,20 @@ class Board{
       char first;
       char you;
       char opp;
+      int initialRow;
+      int initialCol;
       Scanner sc = new Scanner(System.in);
       System.out.print("What's your color?");
-      you = sc.nextChar();
+      you = sc.next().charAt(0);
       setPlayers();
 
       System.out.print("Who goes first?");
-      first = sc.nextChar();
+      first = sc.next().charAt(0);
 
       System.out.print("Enter starting center: ");
       initialRow = sc.nextInt();
       initialCol = sc.nextInt();
 
-      board[initialRow][initialCol] = 'C';
       initializeBoard(initialRow, initialCol, first);
 
       printBoard();
