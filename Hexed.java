@@ -69,7 +69,7 @@ class Board{
       Scanner sc = new Scanner(System.in);
       System.out.print("What's your color?");
       you = sc.next().charAt(0);
-      setPlayers();
+      setPlayers(you, opp);
 
       System.out.print("Who goes first?");
       first = sc.next().charAt(0);
@@ -94,7 +94,7 @@ class Board{
 
 
   //returns arraylist of coordinates of possible moves
-  public ArrayList<Coordinates> checkPossibleMoves(int row, int col, char you, char[][] board){
+  public ArrayList<Coordinates> checkPossibleMoves(int row, int col, char you, char opp, char[][] board){
     ArrayList<Coordinates> enemies = checkEnemyNeighbors(row, col, you, board);
     ArrayList<Coordinates> moves = new ArrayList<>();
 
@@ -272,13 +272,13 @@ class Board{
     // board[row + 1][col + 1] upper right
   }
 
-  // public void setPlayers(){
-  //   if (you == 'g'){
-  //     opp = 'r';
-  //   } else {
-  //     opp = 'g';
-  //   }
-  // }
+  public void setPlayers(char you, char opp){
+    if (you == 'g'){
+      opp = 'r';
+    } else {
+      opp = 'g';
+    }
+  }
 
   // public boolean checkNorth(int row, int col){
   //   char[][] tempBoard = new char[7][9];
