@@ -3,9 +3,9 @@ public class Coordinates{
   int col;
   String direction;
   public Coordinates(int row, int col, String direction){
-    row = this.row;
-    col = this.col;
-    direction = this.direction;
+    this.row = row;
+    this.col = col;
+    this.direction = direction;
   }
 
   public int getRow(){
